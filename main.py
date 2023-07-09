@@ -30,7 +30,8 @@ def fix_image(image):
     setting_color = st.sidebar.slider("Colour")
     setting_brightness = st.sidebar.slider("Brightness")
     setting_contrast = st.sidebar.slider("Contrast")
-    setting_flip_image = st.sidebar.selectbox("Flip Image", options=("FLIP-TOP-BOTTOM", "FLIP-LEFT-RIGHT"))
+    setting_flip_image = st.sidebar.selectbox("Flip Image", options=(
+        "select flip direction", "FLIP-TOP-BOTTOM", "FLIP-LEFT-RIGHT"))
 
     # writing filters code
     st.sidebar.write("Filters")
@@ -85,10 +86,10 @@ def fix_image(image):
     edited_img = contrast.enhance(set_contrast)
 
     # implementing flip direction
-    if flip_direction == "FLIP-TOP_BOTTOM":
-        edited_img = edited_img.transpose(Image.FLIP-TOP-BOTTOM)
+    if flip_direction == "FLIP-TOP-BOTTOM":
+        edited_img = edited_img.transpose(Image.FLIP_TOP_BOTTOM)
     elif flip_direction == "FLIP-LEFT-RIGHT":
-        edited_img = edited_img.transpose(Image.FLIP-LEFT-RIGHT)
+        edited_img = edited_img.transpose(Image.FLIP_LEFT_RIGHT)
     else:
         pass
 
