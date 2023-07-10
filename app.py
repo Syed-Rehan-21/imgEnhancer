@@ -7,8 +7,21 @@ import base64
 
 # page configurations
 st.set_page_config(initial_sidebar_state='expanded',page_title="Image Enhancer")
-st.subheader("Upload an image")
-
+hide_streamlit_style="""
+    <style>
+    #MainMenu{visibility:hidden;}
+    footer{visibility:hidden;}
+    h1{
+        color:#FEA100;
+    }
+    </style>
+    """
+st.markdown(hide_streamlit_style,unsafe_allow_html=True)
+c1,c2 = st.columns([0.7,2])
+with c2 :
+    st.title("Image Enhancer")
+st.divider()
+st.subheader("Upload an image :")
 col1, col2 = st.columns(2)
 image = st.file_uploader(":arrow_up_small:  ",type=["png", "jpg", "jpeg"])
 
@@ -104,11 +117,9 @@ def fix_image(image):
     if bgremove:
         edited_img= remove(edited_img)
 
-    col2.write("Edited")
+    col2.write("Edited ✏️")
     col2.image(edited_img)
     st.download_button("Download :arrow_down_small: ", convert_image(edited_img), "output.png", "image/png")
 
 if image is not None:
     fix_image(image)
-
-    
