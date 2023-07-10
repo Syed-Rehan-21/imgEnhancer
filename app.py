@@ -6,7 +6,7 @@ from io import BytesIO
 import base64
 
 # page configurations
-st.set_page_config(page_title="Image Enhancer")
+st.set_page_config(initial_sidebar_state='auto',page_title="Image Enhancer")
 st.subheader("Upload an image")
 
 col1, col2 = st.columns(2)
