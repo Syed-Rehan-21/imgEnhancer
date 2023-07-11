@@ -1,13 +1,13 @@
 # importing modules
 import streamlit as st
 from rembg import remove
-from PIL import Image, ImageFilter, ImageEnhance
+from PIL import Image, ImageFilter, ImageEnhance, ImageColor
 from io import BytesIO
 import base64
 
 # page configurations
-st.set_page_config(initial_sidebar_state='expanded',page_title="Image Enhancer")
-hide_streamlit_style="""
+st.set_page_config(initial_sidebar_state='expanded', page_title="Image Enhancer")
+hide_streamlit_style = """
     <style>
     #MainMenu{visibility:hidden;}
     footer{visibility:hidden;}
@@ -16,14 +16,17 @@ hide_streamlit_style="""
     }
     </style>
     """
-st.markdown(hide_streamlit_style,unsafe_allow_html=True)
-c1,c2 = st.columns([0.7,2])
-with c2 :
+st.markdown(hide_streamlit_style, unsafe_allow_html=True)
+c1, c2 = st.columns([0.7, 2])
+with c2:
     st.title("Image Enhancer")
 st.divider()
 st.subheader("Upload an image :")
 col1, col2 = st.columns(2)
-image = st.file_uploader(":arrow_up_small:  ",type=["png", "jpg", "jpeg"])
+image = st.file_uploader(":arrow_up_small:  ", type=["png", "jpg", "jpeg"])
+
+# Color selection
+# selected_color = st.color_picker("Select Color")
 
 # Download the enhanced image
 def convert_image(img):
@@ -34,7 +37,7 @@ def convert_image(img):
 
 def fix_image(image):
     image = Image.open(image)
-    #adding sidebar
+    # adding sidebar
     st.sidebar.header("Editing panel")
     col1.write("Original :camera:")
     col1.image(image)
@@ -49,7 +52,7 @@ def fix_image(image):
     # writing filters code
     st.sidebar.write("Filters")
     filter_black_and_white = st.sidebar.checkbox("Black & white")
-    bgremove=st.sidebar.checkbox("BackGroundRemove")
+    bgremove = st.sidebar.checkbox("BackGroundRemove")
     filter_blur = st.sidebar.checkbox("Blur")
 
     if filter_blur:
@@ -115,7 +118,22 @@ def fix_image(image):
             set_blur = filter_blur_strength
             edited_img = edited_img.filter(ImageFilter.GaussianBlur(set_blur))
     if bgremove:
-        edited_img= remove(edited_img)
+        edited_img = remove(edited_img)
+        st.subheader("Select a Color of Your Choise :")
+        selected_color = st.color_picker("Select Color")
+    # Replace background with selected color
+    edited_img = edited_img.convert("RGBA")
+    data = edited_img.getdata()
+
+    new_image = []
+    for item in data:
+        if item[0] == 0 and item[1] == 0 and item[2] == 0:
+            color_rgb = ImageColor.getrgb(selected_color)
+            new_image.append((*color_rgb, 255))
+        else:
+            new_image.append(item)
+
+    edited_img.putdata(new_image)
 
     col2.write("Edited ✏️")
     col2.image(edited_img)
