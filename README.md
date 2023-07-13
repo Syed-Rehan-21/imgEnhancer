@@ -1,6 +1,6 @@
 # Image Enhancer
 
-Image Enhancer is a Streamlit application that allows users to enhance and edit images by adjusting various parameters like sharpness, color, brightness, contrast, and applying filters like black and white, blur, and background removal. It provides an interactive interface where users can upload an image, customize the settings, and preview the edited image in real-time. The edited image can be downloaded in PNG format.
+Image Enhancer is a versatile and user-friendly Streamlit application designed to enhance and transform images effortlessly. With an intuitive interface, users can upload their images and access the editing tools. They can adjust sharpness, colors, brightness, and contrast, apply captivating filters like black and white or blur, and even remove the background and replace it with a custom color. The real-time preview allows users to visualize the impact of their edits, and the edited image can be easily downloaded in PNG format. Experience the power of Image Enhancer and elevate your images to new heights.
 
 ## Installation
 
