@@ -117,6 +117,9 @@ def fix_image(image):
         if filter_blur_strength:
             set_blur = filter_blur_strength
             edited_img = edited_img.filter(ImageFilter.GaussianBlur(set_blur))
+    
+    selected_color = None
+
     if bgremove:
         edited_img = remove(edited_img)
         st.subheader("Select a Color of Your Choise :")
